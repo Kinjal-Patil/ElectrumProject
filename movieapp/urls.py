@@ -9,6 +9,4 @@ urlpatterns = [
     path('movie-list/', MovieList.as_view(), name='movie-list'),
     path('movie-create/', views.movie_create, name='movie-create'),
     path('movie-edit/<pk>/', views.movie_edit, name='movie-edit'),
-
-    path('get-data/', views.getMovieData, name='get-data'),
 ]

@@ -59,7 +59,6 @@ def movie_create(request):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def movie_edit(request, pk):
-    # if request.method == 'GET':
     try:
         movie = Movie.objects.get(pk=pk)
     except Movie.DoesNotExist:
@@ -81,9 +80,4 @@ def movie_edit(request, pk):
     elif request.method == 'DELETE':
         movie.delete()
         return Response("Record Deleted Successfully !", status=status.HTTP_204_NO_CONTENT)
-
-
-
-
-
 
