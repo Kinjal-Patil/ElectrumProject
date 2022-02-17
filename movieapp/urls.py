@@ -10,6 +10,5 @@ urlpatterns = [
     path('movie-create/', views.movie_create, name='movie-create'),
     path('movie-edit/<pk>/', views.movie_edit, name='movie-edit'),
 
-    path('genre-list/', GenreList.as_view(), name='genre-list'),
-    path('genre-edit/<pk>/', views.genre_edit, name='genre-edit'),
+    path('get-data/', views.getMovieData, name='get-data'),
 ]

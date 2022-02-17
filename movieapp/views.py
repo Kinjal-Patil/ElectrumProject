@@ -6,8 +6,12 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.response import Response
 
-from movieapp.models import Movie, Genre
-from movieapp.serializers import MovieSerializer, GenreSerializer
+from movieapp.models import Movie
+from movieapp.serializers import MovieSerializer
+import urllib.request
+import urllib
+import json
+from urllib.parse import quote
 
 
 @api_view(['GET'])
@@ -16,8 +20,6 @@ def api_overview(request):
         'Movie List': '/movie-list/',
         'Movie Update/Delete': '/movie-edit/<pk>/',
         'Movie Create': '/movie-create/',
-        'Genre List': '/genre-list/',
-        'Genre Update/Delete': '/genre-edit/<pk>/',
     }
     return Response(api_urls)
 
@@ -81,31 +83,7 @@ def movie_edit(request, pk):
         return Response("Record Deleted Successfully !", status=status.HTTP_204_NO_CONTENT)
 
 
-class GenreList(ListCreateAPIView):
-    queryset = Genre.objects.all()
-    serializer_class = GenreSerializer
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def genre_edit(request, pk):
-    try:
-        genre = Genre.objects.get(pk=pk)
-    except Genre.DoesNotExist:
-        return Response("Record not found !", status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        serialize = GenreSerializer(genre)
-        return Response(serialize.data)
-    if request.method == 'PUT':
-        if request.data != {}:
-            serialize = GenreSerializer(genre, data=request.data)
-            if serialize.is_valid():
-                serialize.save()
-                return Response(serialize.data)
-            else:
-                return Response(serialize.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response(status=status.HTTP_204_NO_CONTENT)
-    elif request.method == 'DELETE':
-        genre.delete()
-        return Response("Record Deleted Successfully !", status=status.HTTP_204_NO_CONTENT)
+

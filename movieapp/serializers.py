@@ -1,12 +1,7 @@
+from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
-
-from .models import Genre, Movie
-
-
-class GenreSerializer(ModelSerializer):
-    class Meta:
-        model = Genre
-        fields = ['name', ]
+import omdb
+from .models import Movie
 
 
 class MovieSerializer(ModelSerializer):

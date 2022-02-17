@@ -11,18 +11,11 @@ RATINGS = (
 )
 
 
-class Genre(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
 class Movie(models.Model):
     title = models.CharField(max_length=400)
     description = models.TextField()
     ratings = models.CharField(choices=RATINGS, max_length=1)
-    genre = models.ManyToManyField(Genre)
+    genre = models.CharField(max_length=255)
     released_year = models.DateField()
 
     def __str__(self):
